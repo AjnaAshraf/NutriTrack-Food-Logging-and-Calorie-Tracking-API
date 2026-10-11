@@ -1,0 +1,49 @@
+# =====  user endpoints  ======
+
+#api call for registering or creating a user 
+
+###
+POST http://127.0.0.1:8000/fitwise/signup/
+Content-Type: application/json
+
+{
+
+    "username":"user1",
+    "email":"djangouser@gmail.com",
+    "password":"user123"
+}
+
+#api call for listing the user 
+
+###
+GET http://127.0.0.1:8000/fitwise/me/
+Accept: application/json
+Authorization: Basic user1:user123
+
+# =========  foodlogs endpoints ==========
+
+#api call for listing the foodlogs of user1
+###
+GET http://127.0.0.1:8000/fitwise/foodlogs/
+Accept: application/json
+Authorization: Basic django:django
+
+#api call for creating a foodlog 
+
+###
+POST http://127.0.0.1:8000/fitwise/foodlogs/
+Content-Type: application/json
+Authorization: Basic django:django
+
+{
+    "title": "Banana",
+    "calorie": 167,
+    "meal_type": "SNACKS",
+    "serving_size": "1 big banana"
+}
+
+#api call for fetching a foodlog
+###
+GET http://127.0.0.1:8000/fitwise/foodlogs/2/
+Accept: application/json
+Authorization: Basic user1:user123
