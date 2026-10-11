@@ -26,7 +26,7 @@ Authorization: Basic user1:user123
 ###
 GET http://127.0.0.1:8000/fitwise/foodlogs/
 Accept: application/json
-Authorization: Basic django:django
+Authorization: Basic user1:user123
 
 #api call for creating a foodlog 
 
@@ -44,6 +44,31 @@ Authorization: Basic django:django
 
 #api call for fetching a foodlog
 ###
-GET http://127.0.0.1:8000/fitwise/foodlogs/2/
+GET http://127.0.0.1:8000/fitwise/foodlogs/3/
 Accept: application/json
 Authorization: Basic user1:user123
+
+#api call for updating a foodlog
+###
+PUT http://127.0.0.1:8000/fitwise/foodlogs/1/
+Content-Type: application/json
+Authorization: Basic django:django
+
+{
+  "id": 1,
+    "title": "Chicken Biriyani",
+    "calorie": 450,
+    "meal_type": "LUNCH",
+  "serving_size": "1 plate",
+  "created_at": "2026-10-11T06:51:18.064900Z",
+  "updated_at": "2026-10-11T06:51:18.064900Z",
+  "owner": 2
+}
+
+#api call for deleting a foodlog 
+
+###
+DELETE http://127.0.0.1:8000/fitwise/foodlogs/2/
+Accept: application/json
+Authorization: Basic django:django
+
