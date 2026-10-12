@@ -13,12 +13,26 @@ Content-Type: application/json
     "password":"user123"
 }
 
+
+#api call for creating a token 
+
+###
+POST http://127.0.0.1:8000/fitwise/token/
+Content-Type: application/json
+
+{
+    "username":"user1",
+    "password":"user123"
+
+}
+
+
 #api call for listing the user 
 
 ###
 GET http://127.0.0.1:8000/fitwise/me/
 Accept: application/json
-Authorization: Basic user1:user123
+Authorization: Token 0d51985394852f7143abf7a3b06cd10a0c99f43a 
 
 # =========  foodlogs endpoints ==========
 
@@ -26,33 +40,33 @@ Authorization: Basic user1:user123
 ###
 GET http://127.0.0.1:8000/fitwise/foodlogs/
 Accept: application/json
-Authorization: Basic user1:user123
+Authorization: Token 0d51985394852f7143abf7a3b06cd10a0c99f43a
 
 #api call for creating a foodlog 
 
 ###
 POST http://127.0.0.1:8000/fitwise/foodlogs/
 Content-Type: application/json
-Authorization: Basic django:django
+Authorization: Token 0d51985394852f7143abf7a3b06cd10a0c99f43a
 
 {
-    "title": "Banana",
-    "calorie": 167,
+    "title": "Chicken Samosa",
+    "calorie": 160,
     "meal_type": "SNACKS",
-    "serving_size": "1 big banana"
+    "serving_size": "Medium"
 }
 
 #api call for fetching a foodlog
 ###
-GET http://127.0.0.1:8000/fitwise/foodlogs/3/
+GET http://127.0.0.1:8000/fitwise/foodlogs/4/
 Accept: application/json
-Authorization: Basic user1:user123
+Authorization: Token 0d51985394852f7143abf7a3b06cd10a0c99f43a
 
 #api call for updating a foodlog
 ###
 PUT http://127.0.0.1:8000/fitwise/foodlogs/1/
 Content-Type: application/json
-Authorization: Basic django:django
+Authorization: Token 0d51985394852f7143abf7a3b06cd10a0c99f43a
 
 {
   "id": 1,
@@ -70,5 +84,5 @@ Authorization: Basic django:django
 ###
 DELETE http://127.0.0.1:8000/fitwise/foodlogs/2/
 Accept: application/json
-Authorization: Basic django:django
+Authorization: Token 0d51985394852f7143abf7a3b06cd10a0c99f43a
 
