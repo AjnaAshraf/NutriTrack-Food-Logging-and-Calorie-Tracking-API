@@ -1,5 +1,6 @@
 from django.shortcuts import render,get_object_or_404
 from django.contrib.auth.models import User
+from django.db.models import Sum
 
 from rest_framework.views import APIView
 from rest_framework import authentication,permissions
@@ -8,6 +9,10 @@ from rest_framework.response import Response
 from fitwise.serializers import UserSerializers,FoodLogSerializer
 from fitwise.models import FoodLog
 from fitwise.permissions import IsOwner
+
+from datetime import datetime
+
+
 
 class SignUpView(APIView):
 
@@ -123,6 +128,56 @@ class FoodLogRetrieveUpdateDeleteView(APIView):
         instance.delete()
 
         return Response(data={"message": "FoodLog deleted"})
+
+class FoodLogSummaryView(APIView):
+
+    authentication_classes =[authentication.TokenAuthentication]
+
+    permission_classes=[permissions.IsAuthenticated]
+
+    def get(self,request):
+
+        response_data={"todays_total_calorie":0}
+
+        curr_date = datetime.now().date()
+
+        curr_month = datetime.now().month
+
+        curr_year = datetime.now().year
+
+        #======todays total calorie==========
+
+        todays_foodlog= FoodLog.objects.filter(owner=request.user,created_at__date = curr_date)
+
+        if todays_foodlog:
+
+            today_total_calories = todays_foodlog.values("calorie").aggregate(total = Sum("calorie")).get("total")
+
+            response_data["todays_total_calorie"] = today_total_calories
+
+            #categorize calories based on meal_type
+
+            category_calories = todays_foodlog.values("meal_type").annotate(total = Sum("calorie"))
+
+            response_data["meal_type_calorie"] = category_calories
+
+    #===========monthly total Calorie========
+
+        monthly_foodlogs = FoodLog.objects.filter(owner=request.user,created_at__month = curr_month,created_at__year=curr_year)
+
+        if monthly_foodlogs:
+
+            monthly_calories = monthly_foodlogs.values("calorie").aggregate(total = Sum("calorie")).get("total")
+
+            monthly_category_calories = monthly_foodlogs.values("meal_type").annotate(total=Sum("calorie"))
+
+            response_data["monthly_calories"] = monthly_calories
+            response_data["monthly_meal_type_calories"] = monthly_category_calories
+
+
+        return Response(data = response_data )
+
+
 
 
 

@@ -50,9 +50,9 @@ Content-Type: application/json
 Authorization: Token 0d51985394852f7143abf7a3b06cd10a0c99f43a
 
 {
-    "title": "Chicken Samosa",
-    "calorie": 160,
-    "meal_type": "SNACKS",
+    "title": "Chicken Shawarma",
+    "calorie": 360,
+    "meal_type": "DINNER",
     "serving_size": "Medium"
 }
 
@@ -83,6 +83,13 @@ Authorization: Token 0d51985394852f7143abf7a3b06cd10a0c99f43a
 
 ###
 DELETE http://127.0.0.1:8000/fitwise/foodlogs/2/
+Accept: application/json
+Authorization: Token 0d51985394852f7143abf7a3b06cd10a0c99f43a
+
+#api call for taking foodlog summary
+
+###
+GET http://127.0.0.1:8000/fitwise/foodlog/summary/
 Accept: application/json
 Authorization: Token 0d51985394852f7143abf7a3b06cd10a0c99f43a
 
